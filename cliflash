@@ -1,0 +1,63 @@
+#! /bin/bash
+
+HELP="
+_________________________________
+    _    . __     _   _     
+   /  |  | |_ |  |_| |_  |_|
+   \_ |_ | |  |_ | |  _| | |
+_________________________________
+
+This scrpit has three functionnalities :
+ - mount a partition : -m or --mount
+ - unmount : -u or --unmount
+ - path : -p or --path
+
+Once a partition is mounted use alias cliflash-cd to open the mounted directory
+"
+
+#SET YOUR USER NAME HERE
+USER=raphael
+
+work_dir=/home/${USER}/.flash_drive
+
+#we want to be working the .flash_drive directory
+cd $work_dir
+
+#define mode (default is help)
+#values : 0 help, 1 mount, 2 unmount, 3 path
+mode=0
+
+#deal with argument (any mistake will give help)
+if [ $# -eq 1 ]; then
+    if [[ $1 == "-m" || $1 == --mount ]]; then
+        mode=1
+    elif [[ $1 == "-u" || $1 == --unmount ]]; then
+	mode=2
+    elif [[ $1 == "-p" || $1 == --path  ]]; then
+        mode=3
+    else
+	mode=0
+    fi	  	    
+fi	
+
+if [ $mode -eq 0 ]; then
+    printf '%s\n' "$HELP"
+elif [ $mode -eq 1 ]; then
+    echo "Mounting"
+    lsblk
+    read -p "Select disk to mount from the list above : " partition
+
+    mkdir -p media
+    partdir=/dev/${partition}
+
+    if sudo mount $partdir media; then
+        echo "Mounted $partdir to path"
+    else
+        echo "Failed to mount $partdir"
+    fi	
+elif [ $mode -eq 2 ]; then
+    echo "Unmounting"
+    sudo umount media
+elif [ $mode -eq 3 ]; then
+    echo "${work_dir}/media"
+fi
