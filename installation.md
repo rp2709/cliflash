@@ -1,6 +1,6 @@
 This guide will show you how to install cliflash, a simple utility script to mount/unmount/access flash drives
 
-If you don't fancy reading run : sudo sh install.sh
+If you don't fancy reading run : sudo bash install.sh
 
 The install script does the following:
 
