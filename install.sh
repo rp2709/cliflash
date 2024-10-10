@@ -17,7 +17,7 @@ if [ -d $dir ]; then
 fi    
 
 #add script in "correct" place
-mkdir $dir
+sudo -u $user mkdir $dir
 cp cliflash ${dir}/cliflash
 
 #makes cliflash executable

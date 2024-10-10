@@ -14,11 +14,10 @@ This scrpit has three functionnalities :
 
 Once a partition is mounted use alias cliflash-cd to open the mounted directory
 "
+#get actual user's name
+user="$(logname)"
 
-#SET YOUR USER NAME HERE
-USER=raphael
-
-work_dir=/home/${USER}/.flash_drive
+work_dir="/home/${user}/.flash_drive"
 
 #we want to be working the .flash_drive directory
 cd $work_dir
